@@ -50,16 +50,19 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 public:
     MainWindow();
 
+    virtual bool eventFilter(QObject * watched, QEvent * event) override;
+
 private:
     QCategorizedSortFilterProxyModel *proxyModel;
     ConfigPaneModel *model;
+    QPersistentModelIndex pendingActivation;
 
 private:
     void builGroup(const QDomElement& xml);
+    void activateItem();
 
 private slots:
     void load();
-    void activateItem(const QModelIndex &index);
 };
 
 }; // namespace
